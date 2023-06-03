@@ -32,10 +32,14 @@ class Game:
 
   # Renders the Game Statistics in the lower Corner 
   def renderStats(self, screen: pg.Surface, font: pg.font.Font):
+    # Two font colors predefined 
     white = pg.Color(255, 255, 255)
     red = pg.Color(255, 0, 0)
 
+    # Creates the Rectangle needed for the Statistics 
     stats = pg.draw.rect(screen, (0, 0, 0,255), (0, 645, 150, 75), width=1)
+
+    # Shows all the Stats 
     screen.blit(font.render('Fuel: '+str(round(self.truck.fuel, 2)),
                 True, (white) if self.truck.fuel > 20 else (red)), (stats.left, stats.top))
     screen.blit(font.render('FuelStation: '+str(round(self.fuelStation.storage))+'/'+str(round(self.config.difficulty.fuelStationCapacity)),
@@ -58,6 +62,7 @@ class Game:
 
   # reset all values to default
   def Restart(self, config: Config):
+    # Resets the Values of the Objects and such with creating new Instances
     self.config = config
     self.fuelStation = GasStation(config)
     self.warehouse = Warehouse(config)
@@ -70,7 +75,7 @@ class Game:
 
   # main game loop to do things with objects and check for win/loose
   def Handle(self):
-    
+    # Moves the enemy Vehicle to the last known of the Players Vehicle
     self.heli.Move(self.truck.x, self.truck.y)
 
     # refuel truck when entering fuel station

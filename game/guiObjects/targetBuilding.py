@@ -9,7 +9,6 @@ class TargetBuilding:
   storage = 0
 
   #Constructor for the TargetBuilding
-
   def __init__(self, config: Config):
     self.img = pg.transform.scale(self.img, (70, 70))
     x = random.randrange(round(config.width/2), config.width-100)
