@@ -19,7 +19,7 @@ class Menu:
 
     # Shows the Menu in the middle of the Screen 
     screen.blit(newFont.render(
-        'Transport Game by Efdal', True, (pg.Color(255, 255, 255))), (middleScreenWidth -150, middleScreenHeight -75))
+        'Transport Game', True, (pg.Color(255, 255, 255))), (middleScreenWidth -150, middleScreenHeight -75))
     screen.blit(newFont.render(
         'Menu', True, (pg.Color(255, 255, 255))), (middleScreenWidth - 100, middleScreenHeight -25))
     screen.blit(newFont.render(

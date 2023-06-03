@@ -52,7 +52,7 @@ class Gui:
   # Runs the Game itself with key forwarding
   def runGame(self, key): 
     # Moves the Truck with the Keystroke
-    self.game.truck.Move(key)
+    self.game.playerVehicle.Move(key)
 
     # Handles the Game Actions
     self.game.Handle()

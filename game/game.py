@@ -10,11 +10,11 @@ from game.guiObjects.warehouse import Warehouse
 class Game:
   # General Fields
   config: Config
-  fuelStation: GasStation
+  gasStation: GasStation
   warehouse: Warehouse
-  store: TargetBuilding
-  truck: PlayerVehicle
-  heli: EnemyVehicle
+  targetBuilding: TargetBuilding
+  playerVehicle: PlayerVehicle
+  enemyVehicle: EnemyVehicle
   isGameover: False
   isWin: False
   isPaused: False
@@ -26,8 +26,8 @@ class Game:
   # Renders the Objects for the game (Fuel-Station, Warehouse, Store, Truck, Helicopter)
   def renderObjects(self, screen: pg.Surface):
     # Class Polymorphism Handling
-    for x in (self.fuelStation, self.warehouse, self.store, 
-              self.truck, self.heli):
+    for x in (self.gasStation, self.warehouse, self.targetBuilding, 
+              self.playerVehicle, self.enemyVehicle):
       x.Render(screen)
 
   # Renders the Game Statistics in the lower Corner 
@@ -37,18 +37,18 @@ class Game:
     red = pg.Color(255, 0, 0)
 
     # Creates the Rectangle needed for the Statistics 
-    stats = pg.draw.rect(screen, (0, 0, 0,255), (0, 645, 150, 75), width=1)
+    stats = pg.draw.rect(screen, (0, 0, 0,0), (Config.width -150, 0, 150, 75), width=-1)
 
     # Shows all the Stats 
-    screen.blit(font.render('Fuel: '+str(round(self.truck.fuel, 2)),
-                True, (white) if self.truck.fuel > 20 else (red)), (stats.left, stats.top))
-    screen.blit(font.render('FuelStation: '+str(round(self.fuelStation.storage))+'/'+str(round(self.config.difficulty.fuelStationCapacity)),
+    screen.blit(font.render('Fuel: '+str(round(self.playerVehicle.fuel, 2)),
+                True, (white) if self.playerVehicle.fuel > 20 else (red)), (stats.left, stats.top))
+    screen.blit(font.render('FuelStation: '+str(round(self.gasStation.storage))+'/'+str(round(self.config.difficulty.fuelStationCapacity)),
                 True, (white)), (stats.left, stats.top+15))
-    screen.blit(font.render('Capacity: '+str(round(self.truck.load))+'/'+str(round(self.config.difficulty.truckCapacity)),
+    screen.blit(font.render('Capacity: '+str(round(self.playerVehicle.load))+'/'+str(round(self.config.difficulty.truckCapacity)),
                 True, (white)), (stats.left, stats.top+30))
     screen.blit(font.render('Warehouse: '+str(round(self.warehouse.storage))+'/'+str(round(self.config.difficulty.warehouseCapacity)),
                 True, (white)), (stats.left, stats.top+45))
-    screen.blit(font.render('Store: '+str(round(self.store.storage))+'/'+str(round(self.config.difficulty.storeCapacity)),
+    screen.blit(font.render('Store: '+str(round(self.targetBuilding.storage))+'/'+str(round(self.config.difficulty.storeCapacity)),
                 True, (white)), (stats.left, stats.top+60))
 
   # Renders the Background, Objects and Statistics with every Tick
@@ -64,11 +64,11 @@ class Game:
   def Restart(self, config: Config):
     # Resets the Values of the Objects and such with creating new Instances
     self.config = config
-    self.fuelStation = GasStation(config)
+    self.gasStation = GasStation(config)
     self.warehouse = Warehouse(config)
-    self.store = TargetBuilding(config)
-    self.truck = PlayerVehicle(config)
-    self.heli = EnemyVehicle(config)
+    self.targetBuilding = TargetBuilding(config)
+    self.playerVehicle = PlayerVehicle(config)
+    self.enemyVehicle = EnemyVehicle(config)
     self.isGameover = False
     self.isWin = False
     self.isPaused = False
@@ -76,31 +76,31 @@ class Game:
   # main game loop to do things with objects and check for win/loose
   def Handle(self):
     # Moves the enemy Vehicle to the last known of the Players Vehicle
-    self.heli.MoveTo(self.truck.x, self.truck.y)
+    self.enemyVehicle.MoveTo(self.playerVehicle.x, self.playerVehicle.y)
 
     # refuel truck when entering fuel station
-    if self.fuelStation.rect.colliderect(self.truck.rect):
-      self.truck.Refuel(self.fuelStation)
+    if self.gasStation.rect.colliderect(self.playerVehicle.rect):
+      self.playerVehicle.Refuel(self.gasStation)
 
     # load truck when entering warehouse
-    if self.warehouse.rect.colliderect(self.truck.rect):
-      self.truck.Load(self.warehouse)
+    if self.warehouse.rect.colliderect(self.playerVehicle.rect):
+      self.playerVehicle.Load(self.warehouse)
 
     # unload truck when entering store
-    if self.store.rect.colliderect(self.truck.rect):
-      self.truck.Unload(self.store)
+    if self.targetBuilding.rect.colliderect(self.playerVehicle.rect):
+      self.playerVehicle.Unload(self.targetBuilding)
 
     # steal from truck when helicopter is over it
-    if self.truck.rect.colliderect(self.heli.rect):
-      self.truck.Steal()
+    if self.playerVehicle.rect.colliderect(self.enemyVehicle.rect):
+      self.playerVehicle.Steal()
 
     # check for game over (player can not win anymore)
-    if self.truck.fuel <= 0 or self.truck.load+self.warehouse.storage < self.config.difficulty.storeCapacity - self.store.storage:
+    if self.playerVehicle.fuel <= 0 or self.playerVehicle.load+self.warehouse.storage < self.config.difficulty.storeCapacity - self.targetBuilding.storage:
       self.isWin = False
       self.isGameover = True
 
     # check for win
-    if self.store.storage >= self.config.difficulty.storeCapacity:
+    if self.targetBuilding.storage >= self.config.difficulty.storeCapacity:
       self.isGameover = False
       self.isWin = True
 
