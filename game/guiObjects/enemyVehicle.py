@@ -19,7 +19,7 @@ class EnemyVehicle:
 
   #Moves the EnemyVehicle
   # to the Position of the Truck
-  def Move(self, truckX, truckY):
+  def MoveTo(self, truckX, truckY):
     if self.x > truckX:
       self.x -= self.speed
     if self.x < truckX:

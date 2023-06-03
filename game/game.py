@@ -76,7 +76,7 @@ class Game:
   # main game loop to do things with objects and check for win/loose
   def Handle(self):
     # Moves the enemy Vehicle to the last known of the Players Vehicle
-    self.heli.Move(self.truck.x, self.truck.y)
+    self.heli.MoveTo(self.truck.x, self.truck.y)
 
     # refuel truck when entering fuel station
     if self.fuelStation.rect.colliderect(self.truck.rect):
