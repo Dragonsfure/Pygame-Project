@@ -12,9 +12,7 @@ class WinScreen:
 
   # Renders the WinScreen 
   def Render(self, screen: pg.Surface):
-    font = pg.font.Font(None, 60)
-    screen.fill((0, 200, 0))
-    text = font.render("You won!", True, (255, 255, 255))
-    textRect = text.get_rect(
-        center=(self.config.width/2, self.config.height/2))
-    screen.blit(text, textRect)
+    backgroundImage  = pg.image.load('assets/background-assets/winscreen.png')
+    backgroundImage = pg.transform.scale(backgroundImage, (screen.get_width(), screen.get_height()))
+    screen.fill((0, 0, 0))  # background
+    screen.blit(backgroundImage, (0, 0))

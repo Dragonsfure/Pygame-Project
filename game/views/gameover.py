@@ -12,9 +12,7 @@ class GameOverScreen:
 
   # Renders the GameOverScreen
   def Render(self, screen: pg.Surface):
-    font = pg.font.Font(None, 60)
-    screen.fill((200, 0, 0))
-    text = font.render("Game Over!", True, (255, 255, 255))
-    textRect = text.get_rect(
-        center=(self.config.width/2, self.config.height/2))
-    screen.blit(text, textRect)
+    backgroundImage  = pg.image.load('assets/background-assets/gameover.png')
+    backgroundImage = pg.transform.scale(backgroundImage, (screen.get_width(), screen.get_height()))
+    screen.fill((0, 0, 0))  # background
+    screen.blit(backgroundImage, (0, 0))
