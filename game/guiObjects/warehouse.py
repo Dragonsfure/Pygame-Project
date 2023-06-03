@@ -1,6 +1,6 @@
 import random
 import pygame as pg
-from game.config import Config
+from game.models.config import Config
 
 # Class for the Warehouse 
 class Warehouse:

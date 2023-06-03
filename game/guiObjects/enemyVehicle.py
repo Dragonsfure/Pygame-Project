@@ -1,5 +1,5 @@
 import pygame as pg
-from game.config import Config
+from game.models.config import Config
 
 class EnemyVehicle:
   #General Fields
@@ -9,7 +9,6 @@ class EnemyVehicle:
   x, y = 0, 0
 
   #Constructor for the EnemyVehicle
-
   def __init__(self, config: Config):
     self.speed = config.difficulty.helicopterSpeed
     self.img = pg.transform.scale(self.img, (60, 60))
@@ -17,7 +16,7 @@ class EnemyVehicle:
     self.y = config.height-40
     self.rect = pg.Rect(self.x, self.y, 40, 40)
 
-  #Moves the EnemyVehicle
+  # Moves the EnemyVehicle
   # to the Position of the Truck
   def MoveTo(self, truckX, truckY):
     if self.x > truckX:

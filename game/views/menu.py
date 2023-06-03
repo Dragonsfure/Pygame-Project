@@ -17,7 +17,7 @@ class Menu:
     #Bigger Font :D
     newFont  = pg.font.Font(None, 30)
 
-    # Shows the Menu in the middle of the Screen 
+    # Shows the Menu in the middle of the Screen kinda (since correction values are needed cuz of the font and text)
     screen.blit(newFont.render(
         'Transport Game', True, (pg.Color(255, 255, 255))), (middleScreenWidth -150, middleScreenHeight -75))
     screen.blit(newFont.render(

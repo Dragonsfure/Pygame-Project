@@ -1,12 +1,12 @@
 import pygame as pg
-from game.config import Config
+from game.models.config import Config
 from game.guiObjects.gasStation import GasStation
 from game.guiObjects.enemyVehicle import EnemyVehicle
 from game.guiObjects.targetBuilding import TargetBuilding
 from game.guiObjects.playerVehicle import PlayerVehicle
 from game.guiObjects.warehouse import Warehouse
 
-# Game Class to handle specific Actions (like an Controller from an MVC-Pattern )
+# Game Class to handle specific Actions (like an Controller from an MVC-Pattern)
 class Game:
   # General Fields
   config: Config
@@ -53,10 +53,13 @@ class Game:
 
   # Renders the Background, Objects and Statistics with every Tick
   def Render(self, screen: pg.Surface, font: pg.font.Font):
+    # Loads the game background and scales it 
     background = pg.image.load("assets/background-assets/game-background.png")
     background = pg.transform.scale(background, (self.config.width,self.config.height))
+    # Draws the background 
     screen.fill((0, 0, 0))  # background
     screen.blit(background, (0, 0))
+    #Draws the Objects and then the statistics afterwards
     self.renderObjects(screen)
     self.renderStats(screen, font)
 

@@ -1,4 +1,4 @@
-from game.difficulty import Difficulty
+from game.models.difficulty import Difficulty
 
 #Config Class for the "Settings"
 class Config:

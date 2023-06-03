@@ -1,5 +1,5 @@
 import pygame as pg
-from game.config import Config
+from game.models.config import Config
 from game.game import Game
 from game.views.gameover import GameOverScreen
 from game.views.menu import Menu
@@ -87,9 +87,11 @@ class Gui:
 
     # Pauses the Game
     if key[pg.K_p]: 
+      # Sets the game State to "paused" 
       self.state = GameStates.States[4]
       self.game.TogglePause()
       if self.game.isPaused == False:
+        # Unset's the game state if its not paused anymore  
         self.state = GameStates.States[1] 
 
     # If Statement to decide the Action to handle the Current State of the Game    
