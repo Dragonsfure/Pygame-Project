@@ -1,10 +1,10 @@
 import pygame as pg
 from game.config import Config
-from game.objects.gasStation import GasStation
-from game.objects.enemyVehicle import EnemyVehicle
-from game.objects.targetBuilding import TargetBuilding
-from game.objects.playerVehicle import PlayerVehicle
-from game.objects.warehouse import Warehouse
+from game.guiObjects.gasStation import GasStation
+from game.guiObjects.enemyVehicle import EnemyVehicle
+from game.guiObjects.targetBuilding import TargetBuilding
+from game.guiObjects.playerVehicle import PlayerVehicle
+from game.guiObjects.warehouse import Warehouse
 
 # Game Class to handle specific Actions (like an Controller from an MVC-Pattern )
 class Game:
@@ -25,11 +25,10 @@ class Game:
 
   # Renders the Objects for the game (Fuel-Station, Warehouse, Store, Truck, Helicopter)
   def renderObjects(self, screen: pg.Surface):
-    self.fuelStation.Render(screen)
-    self.warehouse.Render(screen)
-    self.store.Render(screen)
-    self.truck.Render(screen)
-    self.heli.Render(screen)
+    # Class Polymorphism Handling
+    for x in (self.fuelStation, self.warehouse, self.store, 
+              self.truck, self.heli):
+      x.Render(screen)
 
   # Renders the Game Statistics in the lower Corner 
   def renderStats(self, screen: pg.Surface, font: pg.font.Font):
@@ -70,7 +69,7 @@ class Game:
     self.isPaused = False
 
   # main game loop to do things with objects and check for win/loose
-  def Loop(self):
+  def Handle(self):
     
     self.heli.Move(self.truck.x, self.truck.y)
 

@@ -2,9 +2,9 @@ from distutils.command.config import config
 import pygame as pg
 from game.config import Config
 from game.difficulty import Difficulty
-from game.objects.gasStation import GasStation
-from game.objects.targetBuilding import TargetBuilding
-from game.objects.warehouse import Warehouse
+from game.guiObjects.gasStation import GasStation
+from game.guiObjects.targetBuilding import TargetBuilding
+from game.guiObjects.warehouse import Warehouse
 
 # PlayerVehicle-Class 
 class PlayerVehicle:
