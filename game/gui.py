@@ -55,7 +55,7 @@ class Gui:
     self.game.playerVehicle.Move(key)
 
     # Handles the Game Actions
-    self.game.Handle()
+    self.game.HandleGameActions()
     if self.game.isGameover:
       self.state = GameStates.States[2]
     if self.game.isWin:
@@ -65,7 +65,7 @@ class Gui:
     self.game.Render(self.screen, self.font)
 
   # Handles the key press in the GameOverScreen
-  def runGameOverScreen(self, key):
+  def showGameOverScreen(self, key):
     if key[pg.K_ESCAPE]:
       self.state = GameStates.States[0]
 
@@ -73,14 +73,14 @@ class Gui:
     self.gameoverScreen.Render(self.screen)
 
   # Handles the key press in the Winning Screen 
-  def runWinScreen(self, key):
+  def showWinScreen(self, key):
     if key[pg.K_ESCAPE]:
       self.state = GameStates.States[0]
     # Renders the WinScreen
     self.winScreen.Render(self.screen)
 
   # Handles General all Actions (Main-Loop)
-  def Loop(self, key):
+  def Handle(self, key):
     # Escapes back to the Menu
     if key[pg.K_ESCAPE]:
       self.state = GameStates.States[0]
@@ -103,10 +103,10 @@ class Gui:
        self.runGame(key)
     elif self.state == GameStates.States[2] :
         # state = gameover        
-        self.runGameOverScreen(key)
+        self.showGameOverScreen(key)
     elif self.state == GameStates.States[3] :
         # state = win        
-        self.runWinScreen(key)
+        self.showWinScreen(key)
     elif self.state == GameStates.States[4] :
         # state = paused        
         return

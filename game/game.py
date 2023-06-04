@@ -63,21 +63,8 @@ class Game:
     self.renderObjects(screen)
     self.renderStats(screen, font)
 
-  # reset all values to default
-  def Restart(self, config: Config):
-    # Resets the Values of the Objects and such with creating new Instances
-    self.config = config
-    self.gasStation = GasStation(config)
-    self.warehouse = Warehouse(config)
-    self.targetBuilding = TargetBuilding(config)
-    self.playerVehicle = PlayerVehicle(config)
-    self.enemyVehicle = EnemyVehicle(config)
-    self.isGameover = False
-    self.isWin = False
-    self.isPaused = False
-
   # main game loop to do things with objects and check for win/loose
-  def Handle(self):
+  def HandleGameActions(self):
     # Moves the enemy Vehicle to the last known of the Players Vehicle
     self.enemyVehicle.MoveTo(self.playerVehicle.x, self.playerVehicle.y)
 
@@ -106,6 +93,19 @@ class Game:
     if self.targetBuilding.storage >= self.config.difficulty.storeCapacity:
       self.isGameover = False
       self.isWin = True
+
+  # reset all values to default
+  def Restart(self, config: Config):
+    # Resets the Values of the Objects and such with creating new Instances
+    self.config = config
+    self.gasStation = GasStation(config)
+    self.warehouse = Warehouse(config)
+    self.targetBuilding = TargetBuilding(config)
+    self.playerVehicle = PlayerVehicle(config)
+    self.enemyVehicle = EnemyVehicle(config)
+    self.isGameover = False
+    self.isWin = False
+    self.isPaused = False
 
   # Toggles the Game Pause field
   def TogglePause(self):

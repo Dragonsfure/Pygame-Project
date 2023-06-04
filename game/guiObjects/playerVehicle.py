@@ -29,6 +29,12 @@ class PlayerVehicle:
     self.load = 0
     self.fuel = config.difficulty.truckFuelCapacity
 
+
+  # Renders the PlayerVehicle with its current Position
+  def Render(self, screen: pg.Surface):
+    self.rect = pg.Rect(self.x, self.y, 40, 40)
+    screen.blit(self.img, self.rect)
+
   # Refuel the PlayerVehicle
   def Refuel(self, fuelStation: GasStation):
     if self.fuel < self.difficulty.truckFuelCapacity and fuelStation.storage > 0:
@@ -75,8 +81,3 @@ class PlayerVehicle:
       self.fuel -= self.difficulty.fuelConsumptionPerMove
       if self.x + 40 > self.config.width:
         self.x = self.config.width - 40
-
-  # Renders the PlayerVehicle with its current Position
-  def Render(self, screen: pg.Surface):
-    self.rect = pg.Rect(self.x, self.y, 40, 40)
-    screen.blit(self.img, self.rect)

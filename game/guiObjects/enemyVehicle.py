@@ -16,6 +16,13 @@ class EnemyVehicle:
     self.y = config.height-40
     self.rect = pg.Rect(self.x, self.y, 40, 40)
 
+
+  #Renders the EnemyVehicle
+  # on to the Surface
+  def Render(self, screen: pg.Surface):
+    self.rect = pg.Rect(self.x, self.y, 40, 40)
+    screen.blit(self.img, self.rect)
+
   # Moves the EnemyVehicle
   # to the Position of the Truck
   def MoveTo(self, truckX, truckY):
@@ -27,9 +34,3 @@ class EnemyVehicle:
       self.y -= self.speed
     if self.y < truckY:
       self.y += self.speed
-
-  #Renders the EnemyVehicle
-  # on to the Surface
-  def Render(self, screen: pg.Surface):
-    self.rect = pg.Rect(self.x, self.y, 40, 40)
-    screen.blit(self.img, self.rect)

@@ -20,7 +20,7 @@ while True:
 
     #Get Key-pressed in pygame-Window and do Task.
     key = pg.key.get_pressed()
-    gameGui.Loop(key)
+    gameGui.Handle(key)
 
     #Update the Ui, with specified Ui-Elements.
     pg.display.update()
