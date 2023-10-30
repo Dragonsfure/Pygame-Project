@@ -9,7 +9,7 @@ from game.gui import Gui
 pg.init()
 
 #Set Pygame-Window Name.
-pg.display.set_caption("Transport Spiel Efdal-Aktas")
+pg.display.set_caption("Transport Spiel Efdal")
 gameGui = Gui(pg)
 
 #Main-Loop
